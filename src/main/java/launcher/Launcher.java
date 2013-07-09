@@ -1,7 +1,6 @@
 package launcher;
 
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
@@ -9,13 +8,13 @@ import org.glassfish.jersey.servlet.ServletContainer;
 public class Launcher {
     public static void main(String[] args)
             throws Exception {
-        readConfigStartServerReturnConnector(8080);
+        startAndReturnServer(8080);
     }
 
-    public static ServerConnector readConfigStartServerReturnConnector(Integer serverPost)
+    public static Server startAndReturnServer(Integer serverPost)
             throws Exception {
         ServletHolder sh = new ServletHolder(ServletContainer.class);
-        sh.setInitParameter("jersey.config.server.provider.packages", "service");
+        sh.setInitParameter("jersey.config.server.provider.packages","org.codehaus.jackson.jaxrs;service");
         sh.setInitOrder(1);
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
@@ -28,8 +27,7 @@ public class Launcher {
 
         Server server = new Server(serverPost);
         server.setHandler(context);
-        ServerConnector connector = new ServerConnector(server);
         server.start();
-        return connector;
+        return server;
     }
 }
