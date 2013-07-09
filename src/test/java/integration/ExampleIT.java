@@ -7,7 +7,7 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import launcher.Launcher;
-import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.Server;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,18 +17,18 @@ import javax.ws.rs.core.MediaType;
 import static org.junit.Assert.assertEquals;
 
 public class ExampleIT {
-    ServerConnector connector;
+    Server server;
 
     @Before
     public void setUp()
             throws Exception {
-        connector = Launcher.readConfigStartServerReturnConnector(8080);
+        server = Launcher.startAndReturnServer(8080);
     }
 
     @After
     public void tearDown()
             throws Exception {
-        connector.shutdown();
+        server.stop();
     }
 
     @Test

@@ -2,17 +2,16 @@ package launcher;
 
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 public class Launcher {
     public static void main(String[] args)
             throws Exception {
-        readConfigStartServerReturnConnector(8080);
+        startAndReturnServer(8080);
     }
 
-    public static ServerConnector readConfigStartServerReturnConnector(Integer serverPost)
+    public static Server startAndReturnServer(Integer serverPost)
             throws Exception {
         ServletHolder sh = new ServletHolder(ServletContainer.class);
         sh.setInitParameter("com.sun.jersey.config.property.resourceConfigClass",
@@ -31,8 +30,7 @@ public class Launcher {
 
         Server server = new Server(serverPost);
         server.setHandler(context);
-        ServerConnector connector = new ServerConnector(server);
         server.start();
-        return connector;
+        return server;
     }
 }
