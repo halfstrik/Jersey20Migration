@@ -10,3 +10,5 @@ I also have one integration test with Jersey client for proving that server is w
 PROBLEM:
 In branch jersey-2.0-migration I try to migrate to 2.0 Jersey.
 Result is: server no longer working, test do not pass.
+
+See more on http://stackoverflow.com/q/17511268/846325
